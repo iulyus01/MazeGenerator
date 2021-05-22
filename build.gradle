@@ -39,7 +39,7 @@ allprojects {
 
     tasks.withType(JavaCompile).configureEach {
         javaCompiler = javaToolchains.compilerFor {
-            languageVersion = JavaLanguageVersion.of(8)
+            languageVersion = JavaLanguageVersion.of(9)
         }
     }
 }
@@ -50,7 +50,8 @@ project(":desktop") {
 
     dependencies {
         implementation project(":core")
-        api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        compile "com.sparkjava:spark-core:2.9.3"
+        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
@@ -64,6 +65,11 @@ project(":core") {
 
 
     dependencies {
+        compile "com.sparkjava:spark-core:2.9.3"
+        implementation group: 'org.json', name: 'json', version: '20210307'
+        implementation group: 'org.apache.xmlgraphics', name: 'batik-all', version: '1.14', ext: 'pom'
+        implementation group: 'org.apache.xmlgraphics', name: 'batik-svg-dom', version: '1.14'
+        implementation group: 'org.apache.xmlgraphics', name: 'batik-svggen', version: '1.14'
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
