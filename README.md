@@ -20,5 +20,7 @@ An api with parameters for algorithm used and dimenstions
 `
 ## Screenshots
 
+![](screenshots/ss0.png)
+
 <img src="screenshots/ss0.png" width="556" height="300">
 
