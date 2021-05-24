@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.iulyus01.mazegenerator.Info;
 import com.iulyus01.mazegenerator.MainClass;
 import com.iulyus01.mazegenerator.ui.DynamicBackground;
-import com.iulyus01.mazegenerator.ui.UIStyles;
 
 public class MainMenuScreen implements Screen {
 
@@ -23,8 +22,6 @@ public class MainMenuScreen implements Screen {
     private final Stage stage;
     private final ShapeRenderer shapeRenderer;
 
-    private UIStyles uiStyles;
-
     public MainMenuScreen(MainClass app) {
         this.app = app;
 
@@ -33,14 +30,10 @@ public class MainMenuScreen implements Screen {
         shapeRenderer = new ShapeRenderer();
 
         Gdx.input.setInputProcessor(stage);
-
-        System.out.println("test: " + (-1 % 4));
     }
 
     @Override
     public void show() {
-//        Skin skin = app.assetManager.get("FlatSkin.json", Skin.class);
-
         TextButton randomButton = new TextButton("Random", app.uiStyles.getTextButtonStyle());
         TextButton advancedButton = new TextButton("Advanced", app.uiStyles.getTextButtonStyle());
         advancedButton.addListener(new ClickListener() {
