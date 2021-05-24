@@ -6,7 +6,9 @@ Made using the LibGDX framework for the interface, apache batik library and java
 
 ## Features
 Randomly generated 2D and 3D mazes using one the selected algorithm and with the specified dimentions.
+
 A solver with the possibility to select the starting and ending locations.
+
 Export the mazes as different fromats
 * PNG
 * JPG
