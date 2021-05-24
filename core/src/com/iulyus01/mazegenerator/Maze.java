@@ -566,6 +566,7 @@ public class Maze {
             System.out.println("test: " + mazeWidth + " " + newMazeWidth);
             if(is3D) algorithm3D.setSize(mazeWidth, mazeHeight, mazeDepth);
             else {
+                if(solver.isRunning()) solver.setRunning(false);
                 algorithm.setSize(mazeWidth, mazeHeight);
                 solver.setSize(mazeWidth, mazeHeight);
             }

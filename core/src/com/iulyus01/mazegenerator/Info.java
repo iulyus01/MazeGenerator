@@ -72,6 +72,7 @@ public class Info {
     public static Color colorRed;
     public static Color colorRed03;
     public static Color colorRed005;
+    public static Color colorRedLighten5;
     public static Color colorPurple;
     public static Color colorPurple03;
     public static Color colorPurple008;
@@ -106,6 +107,7 @@ public class Info {
         colorRed = new Color(.937f, .325f, .313f, 1);
         colorRed03 = new Color(.937f, .325f, .313f, .3f);
         colorRed005 = new Color(.937f, .325f, .313f, .05f);
+        colorRedLighten5 = new Color(1f, .921f, .933f, 1);
         colorPurple = new Color(.611f, .152f, .690f, 1);
         colorPurple03 = new Color(.611f, .152f, .690f, .3f);
         colorPurple008 = new Color(.611f, .152f, .690f, .08f);

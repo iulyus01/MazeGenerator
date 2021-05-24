@@ -31,15 +31,14 @@ public class UIStyles {
         labelStyle = new Label.LabelStyle();
 //        textButtonStyle.font = generator.generateFont(parameter);
 
-        textButtonStyle.font = app.assetManager.get("DoppioOne.ttf");
-        textButtonStyle.fontColor = Info.colorWhite;
-        textButtonStyle.overFontColor = Info.colorCyan;
+        textButtonStyle.font = app.assetManager.get("DoppioOneSize30.ttf");
+        textButtonStyle.fontColor = Info.colorCyan;
+        textButtonStyle.overFontColor = Info.colorBlueDarken4;
         textButtonStyle.downFontColor = Info.colorRed;
 
         labelStyle.font = app.assetManager.get("DoppioOneSize30.ttf");
         labelStyle.fontColor = Info.colorBlue;
 
-//        Button.ButtonStyle style = new Button.ButtonStyle();
     }
 
     public TextButton.TextButtonStyle getTextButtonStyle() {

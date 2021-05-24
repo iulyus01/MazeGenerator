@@ -115,7 +115,7 @@ public class MazeScreenUI {
 
     public void draw() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Info.colorBlueLighten5);
+        shapeRenderer.setColor(Info.colorCyan.r, Info.colorCyan.g, Info.colorCyan.b, .2f);
         shapeRenderer.rect(0, 0, menuSideSize, Info.H);
         shapeRenderer.rect(menuSideSize, Info.H - menuTopSize, Info.W - menuSideSize * 2, menuTopSize);
         shapeRenderer.rect(Info.W - menuSideSize, 0, menuSideSize, Info.H);

@@ -2,31 +2,39 @@ package com.iulyus01.mazegenerator.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.iulyus01.mazegenerator.Info;
 import com.iulyus01.mazegenerator.MainClass;
+import com.iulyus01.mazegenerator.ui.DynamicBackground;
 import com.iulyus01.mazegenerator.ui.UIStyles;
 
 public class MainMenuScreen implements Screen {
 
-    private MainClass app;
+    private final MainClass app;
 
-    private Stage stage;
+    private final DynamicBackground background;
+    private final Stage stage;
+    private final ShapeRenderer shapeRenderer;
 
     private UIStyles uiStyles;
 
     public MainMenuScreen(MainClass app) {
         this.app = app;
 
-//        uiStyles = new UIStyles(app);
+        background = new DynamicBackground(14, .8f);
         stage = new Stage();
+        shapeRenderer = new ShapeRenderer();
 
         Gdx.input.setInputProcessor(stage);
+
+        System.out.println("test: " + (-1 % 4));
     }
 
     @Override
@@ -65,16 +73,18 @@ public class MainMenuScreen implements Screen {
     }
 
     private void update(float delta) {
+        background.update(delta);
         stage.act(delta);
     }
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(Color.BLACK);
+        Gdx.gl.glEnable(GL30.GL_BLEND);
+        ScreenUtils.clear(Info.colorBlueLighten5);
 
         update(delta);
 
-
+        background.draw(shapeRenderer);
         stage.draw();
     }
 

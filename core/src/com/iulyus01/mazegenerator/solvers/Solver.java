@@ -71,6 +71,10 @@ public abstract class Solver {
     }
 
     public void setSize(int mazeWidth, int mazeHeight) {
+        if(this.mazeWidth != mazeWidth || this.mazeHeight != mazeHeight) {
+            setStart(1, 1);
+            setFinish(mazeWidth - 2, mazeHeight - 2);
+        }
         this.mazeWidth = mazeWidth;
         this.mazeHeight = mazeHeight;
         maze = new int[mazeHeight][mazeWidth];

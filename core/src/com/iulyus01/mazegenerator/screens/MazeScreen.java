@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.iulyus01.mazegenerator.Info;
 import com.iulyus01.mazegenerator.MainClass;
 import com.iulyus01.mazegenerator.DrawingManager;
+import com.iulyus01.mazegenerator.ui.DynamicBackground;
 import com.iulyus01.mazegenerator.ui.MazeScreenUI;
 
 public class MazeScreen implements Screen {
@@ -24,9 +25,10 @@ public class MazeScreen implements Screen {
 
     private final MazeScreenUI mazeScreenUi;
 
+    private final DynamicBackground background;
+
 
     public MazeScreen(MainClass app) {
-
         batch = new SpriteBatch();
         shapeRenderer = new ShapeRenderer();
         Viewport viewport = new ScreenViewport();
@@ -42,6 +44,8 @@ public class MazeScreen implements Screen {
 
         mazeScreenUi = new MazeScreenUI(app, drawingManager, batch, shapeRenderer, viewport, menuTopSize, menuSideSize);
 
+        background = new DynamicBackground(8, .1f);
+
     }
 
     @Override
@@ -50,6 +54,7 @@ public class MazeScreen implements Screen {
     }
 
     private void update(float delta) {
+        background.update(delta);
         mazeScreenUi.update(delta);
         drawingManager.update(delta);
     }
@@ -59,9 +64,9 @@ public class MazeScreen implements Screen {
         Gdx.gl.glEnable(GL30.GL_BLEND);
         update(delta);
 
-
         ScreenUtils.clear(Info.colorGreyLighten5);
 
+        background.draw(shapeRenderer);
         drawingManager.draw(shapeRenderer, batch);
         mazeScreenUi.draw();
     }

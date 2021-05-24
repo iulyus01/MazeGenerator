@@ -9,6 +9,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setMaximized(true);
+		config.setWindowIcon("icon128.png", "icon32.png", "icon16.png");
 
 		new Lwjgl3Application(new MainClass(), config);
 	}

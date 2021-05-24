@@ -35,23 +35,23 @@ public class MainClass extends Game {
 //		alg.create(0, 0, 0);
 //		alg.gridToMaze();
 
-		Algorithm3D alg3D = new HuntAndKill3D(5, 5, 5);
-		alg3D.reset();
-		alg3D.create(0, 0, 0, 0);
-		int[][][] m = alg3D.gridToMaze();
-		for(int z = 0; z < 5; z++) {
-			for(int y = 0; y < 5; y++) {
-				for(int x = 0; x < 5; x++) {
-					if(m[z][y][x] == 0) System.out.print(" ");
-					else if(m[z][y][x] == 1) System.out.print("#");
-					else if(m[z][y][x] == 2) System.out.print("/");
-					else if(m[z][y][x] == 3) System.out.print("\\");
-					else if(m[z][y][x] == 4) System.out.print("|");
-				}
-				System.out.println();
-			}
-			System.out.println();
-		}
+//		Algorithm3D alg3D = new HuntAndKill3D(5, 5, 5);
+//		alg3D.reset();
+//		alg3D.create(0, 0, 0, 0);
+//		int[][][] m = alg3D.gridToMaze();
+//		for(int z = 0; z < 5; z++) {
+//			for(int y = 0; y < 5; y++) {
+//				for(int x = 0; x < 5; x++) {
+//					if(m[z][y][x] == 0) System.out.print(" ");
+//					else if(m[z][y][x] == 1) System.out.print("#");
+//					else if(m[z][y][x] == 2) System.out.print("/");
+//					else if(m[z][y][x] == 3) System.out.print("\\");
+//					else if(m[z][y][x] == 4) System.out.print("|");
+//				}
+//				System.out.println();
+//			}
+//			System.out.println();
+//		}
 
 
 		Spark.get("/:alg/:width/:height", (request, response) -> {
