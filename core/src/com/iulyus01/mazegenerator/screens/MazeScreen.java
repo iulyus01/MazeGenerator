@@ -36,11 +36,12 @@ public class MazeScreen implements Screen {
 
         viewport.setCamera(camera);
 
-        int menuTopSize = 40;
-        int menuBottomSize = 60;
-        drawingManager = new DrawingManager(0, 0, Info.W, Info.H - menuTopSize - menuBottomSize);
+        int menuTopSize = 60;
+        float menuSideSize = Info.W / 8f;
+        drawingManager = new DrawingManager(0, 0, (int) (Info.W - menuSideSize * 2), Info.H - menuTopSize);
 
-        mazeScreenUi = new MazeScreenUI(app, drawingManager, batch, viewport, menuTopSize, menuBottomSize);
+        mazeScreenUi = new MazeScreenUI(app, drawingManager, batch, shapeRenderer, viewport, menuTopSize, menuSideSize);
+
     }
 
     @Override

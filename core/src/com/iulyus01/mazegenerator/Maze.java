@@ -1,12 +1,18 @@
-package com.iulyus01.mazegenerator.algorithms;
+package com.iulyus01.mazegenerator;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
-import com.iulyus01.mazegenerator.Info;
+import com.iulyus01.mazegenerator.algorithms.Algorithm;
+import com.iulyus01.mazegenerator.algorithms.Algorithm3D;
+import com.iulyus01.mazegenerator.algorithms.HuntAndKill3D;
+import com.iulyus01.mazegenerator.algorithms.RecursiveBacktracking;
 import com.iulyus01.mazegenerator.api.ApiJsonObject;
+import com.iulyus01.mazegenerator.solvers.Solver;
+import com.iulyus01.mazegenerator.solvers.WallFollower;
 import org.apache.batik.svggen.SVGGraphics2DIOException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
@@ -29,8 +35,11 @@ public class Maze {
     private Algorithm3D newAlgorithm3D;
     private Thread thread;
 
+    private Solver solver;
+
     private final int screenWidth;
     private final int screenHeight;
+    private final int margin = 100;
 
     private float x;
     private float y;
@@ -45,22 +54,21 @@ public class Maze {
     private int[][] maze;
     private int[][][] maze3D;
 
-    private float cellSize;
-    private final int marginHorizontal = 100;
-    private final int marginTop = 100;
-    private final int marginBottom = 50;
-    private int renderDepth = 1;
-
-    private int stepDelay = 100;
+    private Color[] renderColors;
     private Info.AlgState state = Info.AlgState.WAITING;
-
+    private float cellSize;
+    private int renderDepth = 1;
+    private int stepDelay = 100;
     private boolean is3D = false;
     private boolean isChangingDimension = false;
 
-    private Color[] renderColors;
+    private float solverStepDelay = 0;
+    private final float solverStepDelayMax = 100;
 
-//    private float delay = 0;
-//    private float delayMax = 3000;
+    private boolean solverSelectPointAvailable = false;
+
+    private int mouseOverCellX;
+    private int mouseOverCellY;
 
     public Maze(int screenWidth, int screenHeight, int x, int y, int mazeWidth, int mazeHeight, int mazeDepth) {
         this.screenWidth = screenWidth;
@@ -89,27 +97,56 @@ public class Maze {
         algorithm = new RecursiveBacktracking(mazeWidth, mazeHeight);
         algorithm3D = new HuntAndKill3D(mazeWidth, mazeHeight, mazeDepth);
 
+        System.out.println("test: init");
+        // TODO gotta call init of the solver
+        // to initialize the start and finish points
+        solver = new WallFollower(mazeWidth, mazeHeight);
+
         renderColors = new Color[]{Info.colorPurple004, Info.colorPurple008, Info.colorPurple03, Info.colorRed, Info.colorPurple03, Info.colorPurple008, Info.colorPurple004};
     }
 
     private void setCellSize() {
-        cellSize = Math.min((screenWidth - marginHorizontal * 2f) / mazeWidth, (screenHeight - marginTop - marginBottom) / (float) mazeHeight);
-//        if(mazeWidth > mazeHeight) {
-//            cellSize = (screenWidth - 2f * marginHorizontal) / mazeWidth;
-//        } else {
-//            cellSize = (screenHeight - marginTop - marginBottom) / (float) mazeHeight;
-//        }
+        cellSize = Math.min((screenWidth - margin * 2f) / mazeWidth, (screenHeight - margin * 2f) / mazeHeight);
         width = cellSize * mazeWidth;
         height = cellSize * mazeHeight;
         x = Info.W / 2f - width / 2f;
-        y = screenHeight / 2f - height / 2f + marginBottom;
-
+        y = screenHeight / 2f - height / 2f;
+//        y = margin;
+        System.out.println("test: width: " + width + " height: " + height);
     }
 
     public void update(float delta) {
         if(thread != null && thread.isAlive()) {
             if(is3D) maze3D = algorithm3D.gridToMaze();
             else maze = algorithm.gridToMaze();
+        }
+
+        if((!is3D && solver.isShowing()) && solver.isRunning()) {
+            if(!solver.isFinished()) {
+                solver.setMaze(maze);
+                solverStepDelay += delta * 1000;
+                if(solverStepDelay >= solverStepDelayMax) {
+                    solver.step();
+                    solverStepDelay = 0;
+                }
+            } else {
+                solver.setRunning(false);
+            }
+        }
+
+        int mouseX = Gdx.input.getX();
+        int mouseY = Info.H - Gdx.input.getY();
+        // computing solverSelectPointAvailable
+        if(!is3D && (solver.isSelectingStartPoint() || solver.isSelectingFinishPoint())) {
+            if(mouseX > x && mouseY > y && mouseX < x + width && mouseY < y + height) {
+                mouseOverCellX = (int) ((mouseX - x) / cellSize);
+                mouseOverCellY = mazeHeight - (int) ((mouseY - y) / cellSize) - 1;
+                solverSelectPointAvailable = maze[mouseOverCellY][mouseOverCellX] == 0;
+            } else {
+                mouseOverCellX = -1;
+                mouseOverCellY = -1;
+                solverSelectPointAvailable = false;
+            }
         }
     }
 
@@ -152,10 +189,38 @@ public class Maze {
             for(int y = 0; y < mazeHeight; y++) {
                 for(int x = 0; x < mazeWidth; x++) {
                     if(maze[y][x] == 0) continue;
+                    shapeRenderer.setColor(Info.colorRed);
                     shapeRenderer.rect(this.x + x * cellSize, this.y + (height - y * cellSize) - cellSize, cellSize, cellSize);
                 }
             }
 
+            if(solver.isShowing()) {
+                shapeRenderer.setColor(Info.colorGreen);
+                shapeRenderer.rect(this.x + solver.getX() * cellSize + cellSize / 4f * 3 / 2, this.y + (height - solver.getY() * cellSize) - cellSize + cellSize / 4f * 3 / 2, cellSize / 4f, cellSize / 4f);
+
+                shapeRenderer.setColor(Info.colorBlue03);
+                shapeRenderer.rect(this.x + solver.getStart().first * cellSize + cellSize / 4f * 3 / 2, this.y + (height - solver.getStart().second * cellSize) - cellSize + cellSize / 4f * 3 / 2, cellSize / 4f, cellSize / 4f);
+
+                shapeRenderer.setColor(Info.colorBlue03);
+                shapeRenderer.rect(this.x + solver.getFinish().first * cellSize + cellSize / 4f * 3 / 2, this.y + (height - solver.getFinish().second * cellSize) - cellSize + cellSize / 4f * 3 / 2, cellSize / 4f, cellSize / 4f);
+
+                if(solver.isSelectingStartPoint()) {
+                    if(!is3D) {
+                        if(solverSelectPointAvailable) {
+                            shapeRenderer.setColor(Info.colorBlue03);
+                            shapeRenderer.rect(this.x + mouseOverCellX * cellSize, this.y + (height - mouseOverCellY * cellSize) - cellSize, cellSize, cellSize);
+                        }
+                    }
+                }
+                if(solver.isSelectingFinishPoint()) {
+                    if(!is3D) {
+                        if(solverSelectPointAvailable) {
+                            shapeRenderer.setColor(Info.colorBlue03);
+                            shapeRenderer.rect(this.x + mouseOverCellX * cellSize, this.y + (height - mouseOverCellY * cellSize) - cellSize, cellSize, cellSize);
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -167,7 +232,6 @@ public class Maze {
             isChangingDimension = false;
             System.out.println("test: changing dimensions");
         }
-        System.out.println("test: " + is3D + " " + mazeWidth + " " + mazeHeight + " " + mazeDepth);
 
         if(is3D) {
             if(newAlgorithm3D != null && newAlgorithm3D != algorithm3D) algorithm3D = newAlgorithm3D;
@@ -225,7 +289,7 @@ public class Maze {
         g2d.setColor(new java.awt.Color(Info.colorRed.r, Info.colorRed.g, Info.colorRed.b));
 
         int cellSize = 50;
-        int height = mazeHeight * cellSize;
+//        int height = mazeHeight * cellSize;
         for(int y = 0; y < mazeHeight; y++) {
             for(int x = 0; x < mazeWidth; x++) {
                 if(!is3D) {
@@ -342,39 +406,72 @@ public class Maze {
     }
 
     public void export(String format) {
-        FileDialog fileDialog = new FileDialog(new Frame(), "Save", FileDialog.SAVE);
-        fileDialog.setVisible(true);
 
-        String fileName = fileDialog.getDirectory() + fileDialog.getFile();
-        if(fileDialog.getFile() == null) {
-            return;
+        new Thread(() -> {
+            FileDialog fileDialog = new FileDialog(new Frame(), "Save", FileDialog.SAVE);
+            fileDialog.setVisible(true);
+
+            String fileName = fileDialog.getDirectory() + fileDialog.getFile();
+            if(fileDialog.getFile() == null) {
+                return;
+            }
+
+            switch(format) {
+                case "PNG":
+                    exportToPNGAndJPG(fileName, "png");
+                    break;
+                case "JPG":
+                    exportToPNGAndJPG(fileName, "jpg");
+                    break;
+                case "SVG":
+                    exportToSVG(fileName);
+                    break;
+                case "JSON":
+                    exportToJSON(fileName);
+                    break;
+                case "TXT":
+                    exportToTXT(fileName);
+                    break;
+            }
+        }).start();
+    }
+
+    public void clicked() {
+        System.out.println("test: " + solver.isSelectingStartPoint() + " " + solver.isSelectingFinishPoint() + " " + solverSelectPointAvailable);
+        if(solver.isSelectingStartPoint() && solverSelectPointAvailable) {
+            solver.setStart(mouseOverCellX, mouseOverCellY);
+            solver.setSelectingStartPoint(false);
         }
-
-        switch(format) {
-            case "PNG":
-                exportToPNGAndJPG(fileName, "png");
-                break;
-            case "JPG":
-                exportToPNGAndJPG(fileName, "jpg");
-                break;
-            case "SVG":
-                exportToSVG(fileName);
-                break;
-            case "JSON":
-                exportToJSON(fileName);
-                break;
-            case "TXT":
-                exportToTXT(fileName);
-                break;
+        if(solver.isSelectingFinishPoint() && solverSelectPointAvailable) {
+            solver.setFinish(mouseOverCellX, mouseOverCellY);
+            solver.setSelectingFinishPoint(false);
         }
     }
 
-    public void solve() {
-        
+    public void setStart() {
+        solver.setSelectingStartPoint(true);
+
+
+    }
+
+    public void setFinish() {
+        solver.setSelectingFinishPoint(true);
+
+
+    }
+
+    public void toggleSolver() {
+        if(!is3D) {
+            solver.setShowing(!solver.isShowing());
+        }
     }
 
     public Info.AlgState getAlgState() {
         return state;
+    }
+
+    public Solver getSolver() {
+        return solver;
     }
 
     public int getRenderDepth() {
@@ -468,7 +565,10 @@ public class Maze {
             mazeDepth = newMazeDepth;
             System.out.println("test: " + mazeWidth + " " + newMazeWidth);
             if(is3D) algorithm3D.setSize(mazeWidth, mazeHeight, mazeDepth);
-            else algorithm.setSize(mazeWidth, mazeHeight);
+            else {
+                algorithm.setSize(mazeWidth, mazeHeight);
+                solver.setSize(mazeWidth, mazeHeight);
+            }
             setCellSize();
         }
 

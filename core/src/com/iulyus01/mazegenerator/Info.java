@@ -49,14 +49,18 @@ public class Info {
     public static Color colorWhite;
     public static Color colorGrey;
     public static Color colorGreyLighten5;
+    public static Color colorGreen;
     public static Color colorCyan;
     public static Color colorCyanLighten4;
     public static Color colorCyanDarken2;
     public static Color colorTeal;
     public static Color colorTeal03;
     public static Color colorTeal005;
+    public static Color colorBlueLighten5;
     public static Color colorTealDarken4;
     public static Color colorBlue;
+    public static Color colorBlue03;
+    public static Color colorBlueDarken4;
     public static Color colorLightBlue;
     public static Color colorIndigo;
     public static Color colorIndigo03;
@@ -79,6 +83,7 @@ public class Info {
         colorWhite = new Color(1, 1, 1, 1);
         colorGrey = new Color(.619f, .619f, .619f, 1);
         colorGreyLighten5 = new Color(.980f, .980f, .980f, 1);
+        colorGreen = new Color(.180f, .8f, .443f, 1);
         colorCyan = new Color(.160f, .713f, .964f, 1);
         colorCyanLighten4 = new Color(.698f, .921f, .949f, 1);
         colorCyanDarken2 = new Color(0, .674f, .756f, 1);
@@ -86,6 +91,9 @@ public class Info {
         colorIndigo03 = new Color(.247f, .317f, .709f, .3f);
         colorIndigo005 = new Color(.247f, .317f, .709f, .05f);
         colorBlue = new Color(.129f, .588f, .952f, 1);
+        colorBlue03 = new Color(.129f, .588f, .952f, .3f);
+        colorBlueLighten5 = new Color(.89f, .949f, .992f, 1);
+        colorBlueDarken4 = new Color(.05f, .278f, .631f, 1);
         colorLightBlue = new Color(.11f, .662f, .956f, 1);
         colorTeal = new Color(0, .588f, .533f, 1);
         colorTeal03 = new Color(0, .588f, .533f, .3f);

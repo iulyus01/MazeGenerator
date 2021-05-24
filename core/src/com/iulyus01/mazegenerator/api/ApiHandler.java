@@ -69,6 +69,22 @@ public class ApiHandler {
                 algorithm = new HuntAndKill(width, height);
                 algorithmName = "Hunt-and-Kill";
                 break;
+            case "growing_tree_random":
+                algorithm = new GrowingTreeRandom(width, height);
+                algorithmName = "Growing Tree Random";
+                break;
+            case "growing_tree_oldest":
+                algorithm = new GrowingTreeOldest(width, height);
+                algorithmName = "Growing Tree Oldest";
+                break;
+            case "growing_tree_newest":
+                algorithm = new GrowingTreeNewest(width, height);
+                algorithmName = "Growing Tree Newest";
+                break;
+            case "growing_tree_custom":
+                algorithm = new GrowingTreeCustom(width, height);
+                algorithmName = "Growing Tree Custom";
+                break;
                 // TODO add other algorithms
             default:
                 handleError(json, 404, "Not found", "Algorithm '" + algorithmName + "' not found.");

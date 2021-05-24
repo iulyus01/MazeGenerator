@@ -1,9 +1,7 @@
 package com.iulyus01.mazegenerator;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.iulyus01.mazegenerator.algorithms.Maze;
 
 public class DrawingManager {
 
