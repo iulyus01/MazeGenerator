@@ -20,13 +20,13 @@ An api with parameters for algorithm used and dimenstions
 `
 ## Screenshots
 
-![](screenshots/ss0.png)
+![Main Menu](screenshots/ss0.png)
 
-![](screenshots/ss1.png)
+![Advanced1](screenshots/ss1.png)
 
-![](screenshots/ss2.png)
+![Advanced2](screenshots/ss2.png)
 
-![](screenshots/ss3.png)
+![Advanced3](screenshots/ss3.png)
 
-![](screenshots/ss4.png)
+![Advanced4](screenshots/ss4.png)
 
