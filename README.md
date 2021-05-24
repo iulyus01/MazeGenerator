@@ -22,11 +22,19 @@ An api with parameters for algorithm used and dimenstions
 
 ![Main Menu](screenshots/ss0.png)
 
+
+
 ![Advanced1](screenshots/ss1.png)
+
+
 
 ![Advanced2](screenshots/ss2.png)
 
+
+
 ![Advanced3](screenshots/ss3.png)
+
+
 
 ![Advanced4](screenshots/ss4.png)
 
