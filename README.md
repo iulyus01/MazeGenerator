@@ -19,4 +19,4 @@ An api with parameters for algorithm used and dimenstions
 /:alg_name/:maze_width/:maze_height
 `
 ## Screenshots
-![alt text](https://github.com/iulyus01/MazeGenerator/blob/master/screenshots/ss0.png=300)
+![](/screenshots/ss0.png=300 | width=300)
