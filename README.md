@@ -22,5 +22,11 @@ An api with parameters for algorithm used and dimenstions
 
 ![](screenshots/ss0.png)
 
-<img src="screenshots/ss0.png" width="556" height="300">
+![](screenshots/ss1.png)
+
+![](screenshots/ss2.png)
+
+![](screenshots/ss3.png)
+
+![](screenshots/ss4.png)
 
