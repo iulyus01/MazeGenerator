@@ -19,22 +19,18 @@ An api with parameters for algorithm used and dimenstions
 /:alg_name/:maze_width/:maze_height
 `
 ## Screenshots
-
+Main menu screen
 ![Main Menu](screenshots/ss0.png)
 
-
-
+Simple generated maze
 ![Advanced1](screenshots/ss1.png)
 
-
-
+Generating a maze with Hund-and-Kill algorithm
 ![Advanced2](screenshots/ss2.png)
 
-
-
+Showing a 3D maze
 ![Advanced3](screenshots/ss3.png)
 
-
-
+Solver
 ![Advanced4](screenshots/ss4.png)
 
