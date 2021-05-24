@@ -16,7 +16,7 @@ Export the mazes as different fromats
 * JSON
 * TXT
 
-An api with parameters for algorithm used and dimenstions
+An api with parameters for algorithm and dimenstions
 `
 /:alg_name/:maze_width/:maze_height
 `
