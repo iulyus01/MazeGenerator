@@ -19,17 +19,14 @@ public class UIStyles {
 
     private final TextButton.TextButtonStyle textButtonStyle;
     private final Label.LabelStyle labelStyle;
+    private final Label.LabelStyle titleLabelStyle;
 
     public UIStyles(MainClass app) {
         this.app = app;
 
-//        FreeTypeFontGenerator generator = app.assetManager.get("DoppioOne.ttf", FreeTypeFontGenerator.class);
-//        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-//        parameter.size = 24;
-
         textButtonStyle = new TextButton.TextButtonStyle();
         labelStyle = new Label.LabelStyle();
-//        textButtonStyle.font = generator.generateFont(parameter);
+        titleLabelStyle = new Label.LabelStyle();
 
         textButtonStyle.font = app.assetManager.get("DoppioOneSize30.ttf");
         textButtonStyle.fontColor = Info.colorCyan;
@@ -39,6 +36,9 @@ public class UIStyles {
         labelStyle.font = app.assetManager.get("DoppioOneSize30.ttf");
         labelStyle.fontColor = Info.colorBlue;
 
+        titleLabelStyle.font = app.assetManager.get("DoppioOneSize60.ttf");
+        titleLabelStyle.fontColor = Info.colorBlueDarken4;
+
     }
 
     public TextButton.TextButtonStyle getTextButtonStyle() {
@@ -47,6 +47,10 @@ public class UIStyles {
 
     public Label.LabelStyle getLabelStyle() {
         return labelStyle;
+    }
+
+    public Label.LabelStyle getTitleLabelStyle() {
+        return titleLabelStyle;
     }
 
     public ImageButton.ImageButtonStyle createImageButtonStyle(Texture up, Texture over, Texture down) {

@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setMaximized(true);
 		config.setWindowIcon("icon128.png", "icon32.png", "icon16.png");
+		config.setTitle("Maze Generator");
 
 		new Lwjgl3Application(new MainClass(), config);
 	}

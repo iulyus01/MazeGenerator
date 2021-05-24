@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -34,6 +35,8 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
+        Label titleLabel = new Label(Info.applicationTitle, app.uiStyles.getTitleLabelStyle());
+
         TextButton randomButton = new TextButton("Random", app.uiStyles.getTextButtonStyle());
         TextButton advancedButton = new TextButton("Advanced", app.uiStyles.getTextButtonStyle());
         advancedButton.addListener(new ClickListener() {
@@ -55,11 +58,10 @@ public class MainMenuScreen implements Screen {
 
         Table table = new Table();
         table.setFillParent(true);
-        table.add(randomButton).padBottom(20);
-        table.row();
-        table.add(advancedButton).padBottom(20);
-        table.row();
-        table.add(exitButton);
+        table.add(titleLabel).padBottom(180).row();
+        table.add(randomButton).padBottom(20).row();
+        table.add(advancedButton).padBottom(20).row();
+        table.add(exitButton).padBottom(200);
 
         stage.addActor(table);
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 
 public class Info {
 
+
     public enum AlgState {
         WAITING, RUNNING, PAUSED
     }
@@ -42,6 +43,8 @@ public class Info {
             this.forth = forth;
         }
     }
+
+    public static String applicationTitle = "Maze Generator";
 
     public static int W = Gdx.graphics.getWidth();
     public static int H = Gdx.graphics.getHeight();

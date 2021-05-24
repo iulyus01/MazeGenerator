@@ -137,6 +137,11 @@ public class LoadingScreen implements Screen {
         size2Params.fontParameters.size = 30;
         app.assetManager.load("DoppioOneSize30.ttf", BitmapFont.class, size2Params);
 
+        FreetypeFontLoader.FreeTypeFontLoaderParameter size3Params = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        size3Params.fontFileName = "DoppioOne.ttf";
+        size3Params.fontParameters.size = 60;
+        app.assetManager.load("DoppioOneSize60.ttf", BitmapFont.class, size3Params);
+
         // we also load a "normal" font generated via Hiero
 //        app.assetManager.load("data/default.fnt", BitmapFont.class);
     }
