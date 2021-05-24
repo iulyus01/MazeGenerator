@@ -19,4 +19,5 @@ An api with parameters for algorithm used and dimenstions
 /:alg_name/:maze_width/:maze_height
 `
 ## Screenshots
+
 ![](screenshots/ss0.png=300 | width=300)
