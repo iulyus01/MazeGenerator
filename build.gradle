@@ -42,6 +42,7 @@ allprojects {
             languageVersion = JavaLanguageVersion.of(9)
         }
     }
+
 }
 
 project(":desktop") {

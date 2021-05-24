@@ -1,10 +1,7 @@
 package com.iulyus01.mazegenerator;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.assets.AssetManager;
-import com.iulyus01.mazegenerator.algorithms.*;
 import com.iulyus01.mazegenerator.api.ApiHandler;
 import com.iulyus01.mazegenerator.screens.LoadingScreen;
 import com.iulyus01.mazegenerator.ui.UIStyles;
@@ -19,14 +16,6 @@ public class MainClass extends Game {
 	public void create () {
 		assetManager = new AssetManager();
 		Info.init();
-
-//		Graphics.DisplayMode mode = Gdx.graphics.getDisplayMode();
-
-//		Gdx.graphics.setUndecorated(true);
-//		Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
-//		Gdx.graphics.setWindowedMode(Gdx.graphics.getDisplayMode().width, Gdx.graphics.getDisplayMode().height);
-//		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-
 
 		setScreen(new LoadingScreen(this));
 
